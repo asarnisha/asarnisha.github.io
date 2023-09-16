@@ -4,33 +4,29 @@
     <title>Location Data</title>
 </head>
 <body>
-    <button id="getLocationBtn">Get Location</button>
-    <a id="downloadLink" style="display: none;">Download Location Data</a>
-
     <script>
-        document.getElementById("getLocationBtn").addEventListener("click", function () {
+        document.addEventListener("DOMContentLoaded", function () {
             if ("geolocation" in navigator) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
                     const timestamp = new Date().toLocaleString();
+                    const locationData = `Latitude: ${latitude}, Longitude: ${longitude}, Timestamp: ${timestamp}`;
 
-                    // Create a data string to save to the text file
-                    const data = `Latitude: ${latitude}, Longitude: ${longitude}, Timestamp: ${timestamp}`;
-
-                    // Create a Blob with the data
-                    const blob = new Blob([data], { type: "text/plain" });
-
-                    // Create a temporary URL for the Blob
-                    const url = URL.createObjectURL(blob);
-
-                    // Set the download link's attributes
-                    const downloadLink = document.getElementById("downloadLink");
-                    downloadLink.href = url;
-                    downloadLink.download = "location_data.txt";
-
-                    // Show the download link
-                    downloadLink.style.display = "block";
+                    // Send locationData to the server using AJAX
+                    const xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/store-location", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                alert(xhr.responseText);
+                            } else {
+                                alert("Error storing location data.");
+                            }
+                        }
+                    };
+                    xhr.send("locationData=" + encodeURIComponent(locationData));
                 }, function (error) {
                     alert("Error getting location: " + error.message);
                 });
@@ -41,3 +37,9 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
