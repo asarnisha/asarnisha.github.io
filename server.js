@@ -8,7 +8,7 @@ const mongoURI = "mongodb+srv://asar:8760307318@cluster0.uiogxzf.mongodb.net/"; 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/store-location', (req, res) => {
+app.get('/store-location', (req, res) => {
     const locationData = req.body.locationData;
     
     MongoClient.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
