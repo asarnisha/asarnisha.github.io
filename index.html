@@ -15,7 +15,7 @@
 
                     // Send locationData to the server using AJAX
                     const xhr = new XMLHttpRequest();
-                    xhr.open("GET", "/store-location", true);
+                    xhr.open("GET", "/store-location", true); 
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4) {
