@@ -4,7 +4,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
 const port = 3000;
-const mongoURI = "YOUR_MONGODB_ATLAS_CONNECTION_STRING"; // Replace with your MongoDB Atlas connection string
+const mongoURI = "mongodb+srv://asar:8760307318@cluster0.uiogxzf.mongodb.net/"; // Replace with your MongoDB Atlas connection string
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -18,8 +18,8 @@ app.post('/store-location', (req, res) => {
             return;
         }
 
-        const db = client.db("YOUR_DATABASE_NAME"); // Replace with your database name
-        const collection = db.collection("location_data"); // Replace with your collection name
+        const db = client.db("location"); // Replace with your database name
+        const collection = db.collection("location"); // Replace with your collection name
 
         const timestamp = new Date().toLocaleString();
         const dataToInsert = {
